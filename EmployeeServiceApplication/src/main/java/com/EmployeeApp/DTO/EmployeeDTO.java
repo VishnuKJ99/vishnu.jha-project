@@ -1,19 +1,14 @@
-package com.EmployeeApp.Entity;
+package com.EmployeeApp.DTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+public class EmployeeDTO {
 
-@Entity
-public class Employee {
-
-	@Id
 	private Integer empId;
 	private String empName;
 	private Long empPhone;
 	
-	public Employee() {}
+	public EmployeeDTO() {}
 	
-	public Employee(Integer empId, String empName, Long empPhone) {
+	public EmployeeDTO(Integer empId, String empName, Long empPhone) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -40,8 +35,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", empPhone=" + empPhone + "]";
+		return "EmployeeDTO [empId=" + empId + ", empName=" + empName + ", empPhone=" + empPhone + "]";
 	}
-	
 	
 }
