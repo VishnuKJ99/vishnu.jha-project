@@ -10,4 +10,8 @@ public interface EmployeeService {
 	public void insertEmployee(EmployeeDTO employeeDTO);
 	
 	public Iterable<Employee> displayEmployee();
+	
+	public EmployeeDTO getEmployee(Integer employeeId);
+	
+	public void removeEmployee(Integer employeeId);
 }

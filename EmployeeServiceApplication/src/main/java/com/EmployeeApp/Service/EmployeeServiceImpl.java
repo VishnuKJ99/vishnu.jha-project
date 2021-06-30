@@ -1,6 +1,7 @@
 package com.EmployeeApp.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeList;
 		
 	}
+
+	@Override
+	public EmployeeDTO getEmployee(Integer employeeId) {
+		Optional<Employee> employee=employeeRepository.findById(employeeId);
+		Employee emp=employee.orElse(new Employee()); 		//Throw New Exception
+		EmployeeDTO employeeDTO=new EmployeeDTO(emp.getEmpId(),emp.getEmpName(),emp.getEmpPhone());
+		
+		return employeeDTO ;
+	}
+
+	@Override
+	public void removeEmployee(Integer employeeId) {
+		employeeRepository.deleteById(employeeId);
+	}
+	
 
 }
