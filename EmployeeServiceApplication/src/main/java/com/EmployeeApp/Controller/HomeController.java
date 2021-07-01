@@ -1,6 +1,7 @@
 package com.EmployeeApp.Controller;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.EmployeeApp.DTO.EmployeeDTO;
 import com.EmployeeApp.Entity.Employee;
+import com.EmployeeApp.Exception.EmployeeException;
 import com.EmployeeApp.Service.EmployeeService;
 
 @RestController
@@ -32,9 +34,8 @@ public class HomeController {
 	
 	@PostMapping("/registerEmployee")
 	@Transactional
-	public ResponseEntity<String> registerEmployee(@RequestBody EmployeeDTO employee) {
+	public ResponseEntity<String> registerEmployee(@Valid @RequestBody EmployeeDTO employee) throws EmployeeException  {
 		employeeService.insertEmployee(employee);
-		
 		return new ResponseEntity<>("Employee Creation Successful",HttpStatus.CREATED);
 	}
 	
@@ -45,13 +46,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("/employee/{employeeId}")
-	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId){
+	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId) throws EmployeeException {
 		
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/employee/delete/{employeeId}")
-	public ResponseEntity<String> removeEmployee(@PathVariable Integer employeeId){
+	public ResponseEntity<String> removeEmployee(@PathVariable Integer employeeId) throws EmployeeException {
+		employeeService.removeEmployee(employeeId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

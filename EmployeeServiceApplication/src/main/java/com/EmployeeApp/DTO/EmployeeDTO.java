@@ -1,9 +1,14 @@
 package com.EmployeeApp.DTO;
 
+import javax.validation.constraints.NotNull;
+
 public class EmployeeDTO {
 
+	@NotNull(message="Employee ID cannot be empty")
 	private Integer empId;
+	@NotNull(message="Employee Name cannot be empty")
 	private String empName;
+	@NotNull(message="Employee Phone NO. cannot be empty")
 	private Long empPhone;
 	
 	public EmployeeDTO() {}
