@@ -10,7 +10,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication//(exclude = SecurityAutoConfiguration.class)
 public class EmployeeServiceApplication {
 
 	public static void main(String[] args) {
