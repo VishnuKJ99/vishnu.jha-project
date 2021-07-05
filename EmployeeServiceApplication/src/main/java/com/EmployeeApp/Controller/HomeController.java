@@ -24,34 +24,37 @@ import com.EmployeeApp.Entity.Employee;
 import com.EmployeeApp.Exception.EmployeeException;
 import com.EmployeeApp.Service.EmployeeService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @CrossOrigin
-
+@RequestMapping("/employee")
+@Api(value = "EmployeeController, REST APIs that deal with Employee DTO")
 public class HomeController {
 	
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@PostMapping("/registerEmployee")
+	@PostMapping("/")
 	@Transactional
 	public ResponseEntity<String> registerEmployee(@Valid @RequestBody EmployeeDTO employee) throws EmployeeException  {
 		employeeService.insertEmployee(employee);
 		return new ResponseEntity<>("Employee Creation Successful",HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/displayEmployee")
+	@GetMapping("/")
 	public ResponseEntity<Iterable<Employee>> displayEmployee(){
 		return new ResponseEntity<>(employeeService.displayEmployee(),HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/employee/{employeeId}")
+	@GetMapping("/{employeeId}")
 	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId) throws EmployeeException {
 		
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/employee/delete/{employeeId}")
+	@DeleteMapping("/{employeeId}")
 	public ResponseEntity<String> removeEmployee(@PathVariable Integer employeeId) throws EmployeeException {
 		employeeService.removeEmployee(employeeId);
 		return new ResponseEntity<>(HttpStatus.OK);

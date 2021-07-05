@@ -18,13 +18,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository employeeRepository;
 	
 	@Override
-	public void insertEmployee(EmployeeDTO employeeDTO) {
+	public void insertEmployee(EmployeeDTO employeeDTO) throws EmployeeException {
+		Optional<Employee> employee=employeeRepository.findById(employeeDTO.getEmpId());
+		if(employee != null) {
+			throw new EmployeeException("Employee Already Exists");
+		}
+		else {
 		Employee emp = new Employee();
 		emp.setEmpId(employeeDTO.getEmpId());
 		emp.setEmpName(employeeDTO.getEmpName());
 		emp.setEmpPhone(employeeDTO.getEmpPhone());
 		employeeRepository.save(emp);
-		
+		}
 	}
 
 	@Override

@@ -42,7 +42,36 @@ public class ExceptionControllerAdvice {
 		errorInfo.setErrorMessage(exception.getMessage());
 		return new ResponseEntity<>(errorInfo,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-	
+	@ExceptionHandler({MethodArgumentNotValidException.class , ConstraintViolationException.class})
+	public ResponseEntity<ErrorInfo> validatorExceptionHandler(Exception exception){
+		
+		 //LOGGER.error(exception.getMessage(), exception);
+		String errorMsg;
+		if (exception instanceof MethodArgumentNotValidException)
+		{
+		    MethodArgumentNotValidException manvException = (MethodArgumentNotValidException) exception;
+		    errorMsg = manvException.getBindingResult()
+					    .getAllErrors()
+					    .stream()
+					    .map(ObjectError::getDefaultMessage)
+					    .collect(Collectors.joining(", "));
+
+		}
+		else
+		{
+		    ConstraintViolationException cvException = (ConstraintViolationException) exception;
+		    errorMsg = cvException.getConstraintViolations()
+					  .stream()
+					  .map(ConstraintViolation::getMessage)
+					  .collect(Collectors.joining(", "));
+
+		}
+		ErrorInfo errorInfo = new ErrorInfo();
+		errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
+		errorInfo.setErrorMessage(errorMsg);
+		return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+	    }
+
 	}
 
 

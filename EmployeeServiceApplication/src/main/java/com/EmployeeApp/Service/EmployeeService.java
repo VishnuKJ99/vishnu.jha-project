@@ -8,7 +8,7 @@ import com.EmployeeApp.Exception.EmployeeException;
 
 public interface EmployeeService {
 
-	public void insertEmployee(EmployeeDTO employeeDTO);
+	public void insertEmployee(EmployeeDTO employeeDTO) throws EmployeeException;
 	
 	public Iterable<Employee> displayEmployee();
 	
