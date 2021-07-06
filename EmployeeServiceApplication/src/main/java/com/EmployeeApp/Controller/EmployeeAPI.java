@@ -1,6 +1,6 @@
 package com.EmployeeApp.Controller;
 
-import javax.transaction.Transactional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +25,40 @@ import com.EmployeeApp.Exception.EmployeeException;
 import com.EmployeeApp.Service.EmployeeService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/employee")
 @Api(value = "EmployeeController, REST APIs that deal with Employee DTO")
-public class HomeController {
+public class EmployeeAPI {
 	
 	@Autowired
 	private EmployeeService employeeService;
 	
 	@PostMapping("/")
-	@Transactional
+	@ApiOperation(value = "Register details of Employee")
 	public ResponseEntity<String> registerEmployee(@Valid @RequestBody EmployeeDTO employee) throws EmployeeException  {
 		employeeService.insertEmployee(employee);
 		return new ResponseEntity<>("Employee Creation Successful",HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/")
+	@ApiOperation(value = "Fetch details of all Employee")
 	public ResponseEntity<Iterable<Employee>> displayEmployee(){
 		return new ResponseEntity<>(employeeService.displayEmployee(),HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/{employeeId}")
+	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
 	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId) throws EmployeeException {
 		
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{employeeId}")
+	@ApiOperation(value = "Delete an Employee")
 	public ResponseEntity<String> removeEmployee(@PathVariable Integer employeeId) throws EmployeeException {
 		employeeService.removeEmployee(employeeId);
 		return new ResponseEntity<>(HttpStatus.OK);

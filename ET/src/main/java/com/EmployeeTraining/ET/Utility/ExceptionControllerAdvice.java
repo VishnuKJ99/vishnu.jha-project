@@ -1,4 +1,4 @@
-package com.EmployeeApp.Utility;
+package com.EmployeeTraining.ET.Utility;
 
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
@@ -8,8 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.EmployeeApp.Exception.EmployeeException;
-import com.EmployeeApp.Utility.ErrorInfo;
+import com.EmployeeTraining.ET.Exception.EmployeeTrainingException;
 
 import java.util.stream.Collectors;
 
@@ -23,8 +22,8 @@ public class ExceptionControllerAdvice {
 	
 	private static final Log LOGGER=LogFactory.getLog(ExceptionControllerAdvice.class);
 	
-	@ExceptionHandler(EmployeeException.class)
-	public ResponseEntity<ErrorInfo> exceptionHandler2(EmployeeException exception) {
+	@ExceptionHandler(EmployeeTrainingException.class)
+	public ResponseEntity<ErrorInfo> exceptionHandler2(EmployeeTrainingException exception) {
 		
 		LOGGER.error(exception.getMessage(), exception);
 		ErrorInfo error = new ErrorInfo();
