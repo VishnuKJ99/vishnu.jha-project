@@ -1,5 +1,6 @@
 package com.EmployeeApp.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +36,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Iterable<Employee> displayEmployee() {
+	public List<EmployeeDTO> displayEmployee() {
 		Iterable<Employee>employeeList=employeeRepository.findAll();
-		return employeeList;
+		List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+		for(Employee emp : employeeList) {
+			EmployeeDTO empDTO= new EmployeeDTO(emp.getEmpId(),emp.getEmpName(),emp.getEmpPhone());
+			employeeDTOList.add(empDTO);
+		}
+		return employeeDTOList;
 		
 	}
 

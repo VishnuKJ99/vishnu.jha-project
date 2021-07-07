@@ -36,4 +36,9 @@ public class EmployeeTrainingAPI {
 		
 	}
 	
+	@GetMapping("/test")
+	public ResponseEntity<String> testRestTemplate(){
+		return new ResponseEntity<>("hello from training",HttpStatus.OK);
+	}
+	
 }

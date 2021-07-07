@@ -1,6 +1,8 @@
 package com.EmployeeApp.Controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.EmployeeApp.DTO.EmployeeDTO;
@@ -45,7 +48,7 @@ public class EmployeeAPI {
 	
 	@GetMapping("/")
 	@ApiOperation(value = "Fetch details of all Employee")
-	public ResponseEntity<Iterable<Employee>> displayEmployee(){
+	public ResponseEntity<List<EmployeeDTO>> displayEmployee(){
 		return new ResponseEntity<>(employeeService.displayEmployee(),HttpStatus.OK);
 		
 	}
@@ -62,5 +65,13 @@ public class EmployeeAPI {
 	public ResponseEntity<String> removeEmployee(@PathVariable Integer employeeId) throws EmployeeException {
 		employeeService.removeEmployee(employeeId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
+	public ResponseEntity<String> trainEmployee() {
+		String uri = "http://localhost:8081/training/test";
+	    RestTemplate restTemplate = new RestTemplate();
+	    String result = restTemplate.getForObject(uri, String.class);
+		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 }

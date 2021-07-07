@@ -10,7 +10,7 @@ public interface EmployeeService {
 
 	public void insertEmployee(EmployeeDTO employeeDTO) throws EmployeeException;
 	
-	public Iterable<Employee> displayEmployee();
+	public List<EmployeeDTO> displayEmployee();
 	
 	public EmployeeDTO getEmployee(Integer employeeId) throws EmployeeException;
 	
