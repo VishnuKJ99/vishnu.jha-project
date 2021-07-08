@@ -15,4 +15,6 @@ public interface EmployeeService {
 	public EmployeeDTO getEmployee(Integer employeeId) throws EmployeeException;
 	
 	public void removeEmployee(Integer employeeId) throws EmployeeException;
+
+	public Object getEmployeev2(Integer employeeId) throws EmployeeException;
 }

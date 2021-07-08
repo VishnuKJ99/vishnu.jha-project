@@ -55,6 +55,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		return employeeDTO ;
 	}
+	
+	@Override
+	public String getEmployeev2(Integer employeeId) throws EmployeeException {
+		Optional<Employee> employee=employeeRepository.findById(employeeId);
+		Employee emp=employee.orElseThrow(() -> new EmployeeException("Employee Not Found"));
+		EmployeeDTO employeeDTO=new EmployeeDTO(emp.getEmpId(),emp.getEmpName(),emp.getEmpPhone());
+		
+		return employeeDTO.toString();
+	}
+
 
 	@Override
 	public void removeEmployee(Integer employeeId) throws EmployeeException {

@@ -46,18 +46,25 @@ public class EmployeeAPI {
 		return new ResponseEntity<>("Employee Creation Successful",HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	@ApiOperation(value = "Fetch details of all Employee")
 	public ResponseEntity<List<EmployeeDTO>> displayEmployee(){
 		return new ResponseEntity<>(employeeService.displayEmployee(),HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/{employeeId}")
+	@GetMapping(value="/{employeeId}",params = "version=1")
 	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
 	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId) throws EmployeeException {
 		
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/{employeeId}",params = "version=2")
+	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
+	public ResponseEntity<Object> getEmployeeByIdv2(@PathVariable Integer employeeId) throws EmployeeException {
+		Object employee=employeeService.getEmployeev2(employeeId);
+		return new ResponseEntity<>(employee,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{employeeId}")
