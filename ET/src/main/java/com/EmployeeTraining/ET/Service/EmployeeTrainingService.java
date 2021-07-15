@@ -10,5 +10,5 @@ public interface EmployeeTrainingService {
 	
 	public Iterable<EmployeeTrainingEntity> getEmployeesInTraining() throws EmployeeTrainingException;
 	public void registerEmployeeForTraining(EmployeeTrainingDTO employee) throws EmployeeTrainingException;
-	
+	public EmployeeTrainingEntity getEmployeeById(Integer trainingCode) throws EmployeeTrainingException;
 }

@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +26,7 @@ public class EmployeeTrainingAPI {
 	EmployeeTrainingService service;
 	
 	@PostMapping("/")
-	public ResponseEntity<String> registerEmployee(EmployeeTrainingDTO employeeDTO) throws EmployeeTrainingException {
+	public ResponseEntity<String> registerEmployee(@RequestBody EmployeeTrainingDTO employeeDTO) throws EmployeeTrainingException {
 		service.registerEmployeeForTraining(employeeDTO);
 		return new ResponseEntity<>("Employee Registered For Training Succesfully",HttpStatus.OK);
 		
@@ -36,9 +38,9 @@ public class EmployeeTrainingAPI {
 		
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<String> testRestTemplate(){
-		return new ResponseEntity<>("hello from training",HttpStatus.OK);
+	@GetMapping("/{trainingCode}")
+	public ResponseEntity<EmployeeTrainingEntity> testRestTemplate(@PathVariable Integer trainingCode) throws EmployeeTrainingException{
+		return new ResponseEntity<>(service.getEmployeeById(trainingCode),HttpStatus.OK);
 	}
 	
 }

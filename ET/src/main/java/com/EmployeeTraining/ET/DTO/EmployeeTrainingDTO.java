@@ -12,7 +12,6 @@ public class EmployeeTrainingDTO {
 	private Integer employeeId;
 	
 	public EmployeeTrainingDTO() {
-		super();
 	}
 
 	public EmployeeTrainingDTO(Integer trainingCode, String course, Integer employeeId) {
@@ -44,6 +43,12 @@ public class EmployeeTrainingDTO {
 
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeTrainingDTO [trainingCode=" + trainingCode + ", course=" + course + ", employeeId=" + employeeId
+				+ "]";
 	}
 	
 	

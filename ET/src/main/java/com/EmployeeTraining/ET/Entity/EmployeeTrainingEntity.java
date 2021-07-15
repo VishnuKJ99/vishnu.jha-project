@@ -8,7 +8,9 @@ public class EmployeeTrainingEntity {
 
 	@Id
 	private Integer trainingCode;
+	
 	private String course;
+	
 	private Integer employeeId;
 	
 	public EmployeeTrainingEntity() {

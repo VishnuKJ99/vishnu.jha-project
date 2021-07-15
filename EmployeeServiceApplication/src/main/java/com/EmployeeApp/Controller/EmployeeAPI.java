@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.EmployeeApp.DTO.EmployeeDTO;
 import com.EmployeeApp.Entity.Employee;
+import com.EmployeeApp.Entity.EmployeeTraining;
 import com.EmployeeApp.Exception.EmployeeException;
 import com.EmployeeApp.Service.EmployeeService;
 
@@ -35,6 +36,9 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/employee")
 @Api(value = "EmployeeController, REST APIs that deal with Employee DTO")
 public class EmployeeAPI {
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@Autowired
 	private EmployeeService employeeService;
@@ -53,19 +57,19 @@ public class EmployeeAPI {
 		
 	}
 	
-	@GetMapping(value="/{employeeId}",params = "version=1")
+	@GetMapping(value="/{employeeId}")
 	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
 	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Integer employeeId) throws EmployeeException {
 		
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/{employeeId}",params = "version=2")
-	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
-	public ResponseEntity<Object> getEmployeeByIdv2(@PathVariable Integer employeeId) throws EmployeeException {
-		Object employee=employeeService.getEmployeev2(employeeId);
-		return new ResponseEntity<>(employee,HttpStatus.OK);
-	}
+//	@GetMapping(value="/{employeeId}",params = "version=2")
+//	@ApiOperation(value = "Fetch details of Employee by EmployeeID")
+//	public ResponseEntity<Object> getEmployeeByIdv2(@PathVariable Integer employeeId) throws EmployeeException {
+//		Object employee=employeeService.getEmployeev2(employeeId);
+//		return new ResponseEntity<>(employee,HttpStatus.OK);
+//	}
 	
 	@DeleteMapping("/{employeeId}")
 	@ApiOperation(value = "Delete an Employee")
@@ -74,11 +78,10 @@ public class EmployeeAPI {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<String> trainEmployee() {
-		String uri = "http://localhost:8081/training/test";
-	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
+	@GetMapping("/training/{trainingCode}")
+	public ResponseEntity<EmployeeTraining> trainEmployee(@PathVariable Integer trainingCode) {
+		String uri = "http://Employee-Training-Service/training/" + trainingCode;
+	    EmployeeTraining result = restTemplate.getForObject(uri, EmployeeTraining.class);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 }

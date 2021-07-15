@@ -34,5 +34,12 @@ public class EmployeeTrainingServiceImpl implements EmployeeTrainingService {
 		repo.save(emp);
 		
 	}
+	
+	@Override
+	public EmployeeTrainingEntity getEmployeeById(Integer trainingCode) throws EmployeeTrainingException{
+		Optional<EmployeeTrainingEntity> emptraining=repo.findById(trainingCode);
+		EmployeeTrainingEntity emp = emptraining.orElseThrow(()-> new EmployeeTrainingException("Employee Not Found"));
+		return emp;
+	}
 
 }
